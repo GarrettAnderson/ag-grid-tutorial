@@ -80,61 +80,83 @@ const loading = () => {
     console.log(gridContainer)
 
     /*
-          ENABLE FILTERING AND SELECTING
+          ENABLE FILTERING, SELECTING and GROUPING
 
   // Filtering and Selecting the data columns are easy:
-      // const columnDefs = [
-      //     {headerName: "Make", field: "make", sortable: true, filter: true },
-      //     {headerName: "Model", field: "model", sortable: true, filter: true },
-      //     {headerName: "Price", field: "price", sortable: true, filter: true }
-      // ];
+        // const columnDefs = [
+        //     {headerName: "Make", field: "make", sortable: true, filter: true },
+        //     {headerName: "Model", field: "model", sortable: true, filter: true },
+        //     {headerName: "Price", field: "price", sortable: true, filter: true }
+        // ];
+
+  // Grouping Data:
+        //   var columnDefs = [
+        // {headerName: "Make", field: "make", rowGroup: true },
+        // {headerName: "Price", field: "price"}
+        // ];
+        //
+        // var autoGroupColumnDef = {
+        // headerName: "Model",
+        // field: "model",
+        // cellRenderer:'agGroupCellRenderer',
+        // cellRendererParams: {
+        //     checkbox: true
+        // }
+        // }
+        //
+        // // let the grid know which columns and what data to use
+        // var gridOptions = {
+        // columnDefs: columnDefs,
+        // autoGroupColumnDef: autoGroupColumnDef,
+        // groupSelectsChildren: true,
+        // rowSelection: 'multiple'
+        // };
+
+        // The grid now groups the data by make, while listing the model field value when expanded. Notice that grouping works with checkboxes as well - the groupSelectsChildren property adds a group-level checkbox that selects/deselects all items in the group.
 
 // With ag-grid, it is just a matter of adding and changing couple of properties:
 
-        */
+
+*/
+
+
+// specify the columns
+  let columnDefs = [
+    {headerName: "Make", field: "make", checkboxSelection: true },
+    {headerName: "Model", field: "model"},
+    {headerName: "Price", field: "price"}
+  ];
+
+// let the grid know which columns and what data to use
+  let gridOptions = {
+    columnDefs: columnDefs,
+    rowSelection: 'multiple'
+  };
 
 
 
-
-        // specify the columns
-            let columnDefs = [
-              {headerName: "Make", field: "make", checkboxSelection: true },
-              {headerName: "Model", field: "model"},
-              {headerName: "Price", field: "price"}
-            ];
-
-        // let the grid know which columns and what data to use
-            let gridOptions = {
-              columnDefs: columnDefs,
-              rowSelection: 'multiple'
-            };
+// create the grid passing in the div to use together with the columns & data we want to use
+new agGrid.Grid(gridContainer, gridOptions);
 
 
 
-    // create the grid passing in the div to use together with the columns & data we want to use
-    new agGrid.Grid(gridContainer, gridOptions);
+const filterBtn = document.querySelector('button')
+console.log(filterBtn)
 
+filterBtn.addEventListener('click', function() {
+        console.log('testing button functionality')
+        let selectedNodes = gridOptions.api.getSelectedNodes()
+        let selectedData = selectedNodes.map( function(node) {
+            return node.data
+          })
 
+        let selectedDataStringPresentation = selectedData.map( function(node) {
+            return node.make + ' ' + node.model
+          }).join(', ')
 
-        const filterBtn = document.querySelector('button')
-        console.log(filterBtn)
-
-        filterBtn.addEventListener('click', function() {
-          console.log('testing button functionality')
-          let selectedNodes = gridOptions.api.getSelectedNodes()
-          let selectedData = selectedNodes.map( function(node) {
-              return node.data
-            })
-
-          let selectedDataStringPresentation = selectedData.map( function(node) {
-              return node.make + ' ' + node.model
-            }).join(', ')
-
-          alert('Selected nodes: ' + selectedDataStringPresentation); // You can substitute that bit with a real-world application logic in order to communicate with the server
-        })
-
-
- }
+        alert('Selected nodes: ' + selectedDataStringPresentation); // You can substitute that bit with a real-world application logic in order to communicate with the server
+    })
+}
 
 
  /*
@@ -142,6 +164,8 @@ const loading = () => {
  The only thing we have to add is a button that gets the selected data and sends it to the server. To do this, we need the following change:
 
  */
+
+//This is the function to trigger button onClick functionality
 
  // function getSelectedRows() {
  //
