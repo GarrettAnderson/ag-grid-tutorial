@@ -60,6 +60,6 @@ h1.hello-world {
 
 .ag-theme-alpine {
   border-width: 2rem;
-  border-image-source: url('../imags/Flag_Checkerboard.jpg');
+  border-image: url('../images/Flag_Checkerboard.jpg') 30 round;
   border-image-repeat: repeat;
 }
