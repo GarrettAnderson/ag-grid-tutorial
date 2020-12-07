@@ -4,14 +4,20 @@
 
 html {
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0 auto;
   min-height: 100%;
+  max-width: 100%;
   background-image: url('../images/severin-demchukCropped2.jpeg');
   background-size: cover;
   background-position: center;
+  overflow: hidden;
+  /* position: fixed; */
+  /* background: linear-gradient(to top, rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../images/severin-demchukCropped2.jpeg") */
 }
 
 header {
@@ -59,11 +65,16 @@ h1.hello-world {
     font-size: 3rem;
     color: #fff;
     font-weight: 100;
+    text-align: center;
+    /* text-transform: uppercase; */
     font-family: 'Roboto', sans-serif;
-}
+  }
+
 
 .ag-theme-alpine {
   border-width: 2rem;
   border-image-source: url('../images/Flag_Checkerboard.jpg') 30 round;
   border-image-repeat: repeat;
+  transform: scale(.6);
+  margin-top: -7rem;
 }
